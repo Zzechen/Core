@@ -1,0 +1,63 @@
+package com.zzc.utilscore;
+
+import java.security.MessageDigest;
+
+/**
+ * Created by Administrator on 2016/4/12.
+ */
+public class Md5Utils {
+
+
+    /**
+     * 采用MD5加密
+     * @author Xingxing, Xie
+     * @datetime 2014-5-31
+     */
+
+    /***
+     * MD5加密 生成32位md5码
+     * @return 返回32位md5码
+     */
+    public static String md5Encode(String inStr) throws Exception {
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            e.printStackTrace();
+            return "";
+        }
+        if (inStr == null) {
+            inStr = "";
+        }
+        byte[] byteArray = inStr.getBytes("UTF-8");
+        byte[] md5Bytes = md5.digest(byteArray);
+        StringBuffer hexValue = new StringBuffer();
+        for (int i = 0; i < md5Bytes.length; i++) {
+            int val = ((int) md5Bytes[i]) & 0xff;
+            if (val < 16) {
+                hexValue.append("0");
+            }
+            hexValue.append(Integer.toHexString(val));
+        }
+        return hexValue.toString();
+    }
+
+    /**
+     * 获取校验参数
+     *
+     * @return 校验参数
+     */
+    public static String getSign() {
+        String sign = "";
+        try {
+            sign = Md5Utils.md5Encode("appKey=" + "&appPackageName="
+                    + "&xiaobaishiji=v1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sign;
+    }
+
+}
+
