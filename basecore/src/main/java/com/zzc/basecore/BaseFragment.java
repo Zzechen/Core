@@ -40,8 +40,9 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
-            mRootView = inflater.inflate(getLayoutId(), null);
             beforeInflate(mRootView, savedInstanceState);
+            mRootView = inflater.inflate(getLayoutId(), null);
+            afterInflate();
             ILoadingView loadingView = createLoadingView();
             mLoadingView = loadingView == null ? new DefaultLoadingView(mBaseContext) : loadingView;
             IToast toast = createToast();
@@ -54,6 +55,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     }
 
     protected abstract void beforeInflate(View rootView, Bundle savedInstanceState);
+
+    protected abstract void afterInflate();
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

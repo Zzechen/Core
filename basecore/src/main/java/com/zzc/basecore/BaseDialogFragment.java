@@ -80,6 +80,7 @@ public abstract class BaseDialogFragment<P extends IPresenter> extends DialogFra
         }
         beforeInflate(decorView, savedInstanceState);
         initView(decorView, savedInstanceState);
+        afterInflate();
         initListener();
         return mDialog;
     }
@@ -88,6 +89,8 @@ public abstract class BaseDialogFragment<P extends IPresenter> extends DialogFra
      *
      */
     protected abstract void beforeInflate(View rootView, Bundle savedInstanceState);
+
+    protected abstract void afterInflate();
 
     /**
      * 动画

@@ -24,11 +24,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         setFullScreen(supportFullScreen());
         beforeInflate(savedInstanceState);
         setContentView(getLayoutResId());
+        afterInflate();
         initView(savedInstanceState);
         initListener();
     }
 
     protected abstract void beforeInflate(Bundle savedInstanceState);
+
+    protected abstract void afterInflate();
 
     protected abstract void initListener();
 
